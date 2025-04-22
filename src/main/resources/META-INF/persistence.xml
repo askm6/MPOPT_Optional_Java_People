@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+    <persistence-unit name="miUnidadDePersistencia">
+        <provider>com.objectdb.jpa.Provider</provider>
+        <class>model.entity.Person</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="objectdb://localhost:6136/people.odb"/>
+            <property name="javax.persistence.jdbc.user" value="admin"/>
+            <property name="javax.persistence.jdbc.password" value="admin"/>
+        </properties>
+    </persistence-unit>
+</persistence>
