@@ -128,7 +128,7 @@
           <Font name="Segoe UI" size="10" style="2"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;center&gt;PHOTO&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt; &lt;i&gt;Supported format: PNG.&lt;/i&gt;&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt;&lt;i&gt;Max. size 64KB&lt;/i&gt;&lt;/center&gt;&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;br&gt;&lt;center&gt;Drop your file here&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt;PHOTO&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt; &lt;i&gt;Supported format: PNG.&lt;/i&gt;&lt;/center&gt;&lt;/br&gt;&lt;br&gt;&lt;center&gt;&lt;i&gt;Max. size 64KB&lt;/i&gt;&lt;/center&gt;&lt;/html&gt;"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
