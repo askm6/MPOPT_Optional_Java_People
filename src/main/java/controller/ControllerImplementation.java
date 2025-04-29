@@ -37,7 +37,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
-import utils.Constants;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -120,22 +119,22 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case Constants.ARRAYLIST:
+            case "ArrayList":
                 dao = new DAOArrayList();
                 break;
-            case Constants.HASHMAP:
+            case "HashMap":
                 dao = new DAOHashMap();
                 break;
-            case Constants.FILE:
+            case "File":
                 setupFileStorage();
                 break;
-            case Constants.FILE_SERIALIZATION:
+            case "File (Serialization)":
                 setupFileSerialization();
                 break;
-            case Constants.SQL_DATABASE:
+            case "SQL - Database":
                 setupSQLDatabase();
                 break;
-            case Constants.JPA_DATABASE:
+            case "JPA - Database":
                 setupJPADatabase();
                 break;
         }
