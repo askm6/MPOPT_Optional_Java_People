@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isNumber;
 
@@ -25,10 +26,16 @@ public class Delete extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
+    private final String placeholderNif = "Enter NIF number, letter is calculated (e.g., 12345678)";
+    
     public Delete(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        nif.setText(placeholderNif);
+        nif.setForeground(Color.GRAY);
+        nif.setFocusable(false);
     }
 
     public JButton getDelete() {
@@ -91,9 +98,23 @@ public class Delete extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
         getContentPane().add(delete, gridBagConstraints);
 
+        nif.setToolTipText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nifFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nifFocusLost(evt);
+            }
+        });
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nifMouseEntered(evt);
+            }
+        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -172,10 +193,31 @@ public class Delete extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyTyped
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        nif.setText("");
+        nif.setText(placeholderNif);
         nif.setEditable(true);
         delete.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
+
+    private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
+        // TODO add your handling code here:
+        if (nif.getText().equals(placeholderNif)) {
+            nif.setText("");
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusGained
+
+    private void nifFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusLost
+        // TODO add your handling code here:
+        if (nif.getText().equals("")) {
+            nif.setText(placeholderNif);
+            nif.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nifFocusLost
+
+    private void nifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseEntered
+        // TODO add your handling code here:
+        nif.setFocusable(true);
+    }//GEN-LAST:event_nifMouseEntered
 
     /**
      * @param args the command line arguments

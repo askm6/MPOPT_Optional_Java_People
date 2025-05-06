@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import  java.awt.Color;
+
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
@@ -24,6 +26,7 @@ import org.jdatepicker.JDatePicker;
  * @version 1.1.0
  */
 public class Update extends javax.swing.JDialog {
+    private final String placeholderNif = "Enter NIF number, letter is calculated (e.g., 12345678)";
 
     public Update(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,6 +36,11 @@ public class Update extends javax.swing.JDialog {
         DropTarget dropTarget = new DropTarget(photo, d);
         read.setVisible(false);
         update.setEnabled(false);
+        
+        nif.setText(placeholderNif);
+        nif.setForeground(Color.gray);
+        nif.setFocusable(false);
+
     }
 
     public JButton getUpdate() {
@@ -116,9 +124,23 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel1, gridBagConstraints);
 
+        nif.setToolTipText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nifFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nifFocusLost(evt);
+            }
+        });
+        nif.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nifMouseEntered(evt);
+            }
+        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -267,7 +289,7 @@ public class Update extends javax.swing.JDialog {
         if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);  
+            nif.setEditable(false);
             read.doClick();
         }
     }//GEN-LAST:event_nifKeyPressed
@@ -289,8 +311,8 @@ public class Update extends javax.swing.JDialog {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         nif.setEditable(true);
-        nif.setText("");
-        name.setText("");
+        nif.setText(placeholderNif);
+        nif.setForeground(Color.gray);
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null); 
         name.setEnabled(false);
@@ -333,6 +355,28 @@ public class Update extends javax.swing.JDialog {
     private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
         photo.setIcon(null);
     }//GEN-LAST:event_photoMouseClicked
+
+    private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
+        // TODO add your handling code here:
+        if (nif.getText().equals(placeholderNif)) {
+            nif.setText("");
+            nif.setForeground(Color.gray);
+        }
+
+    }//GEN-LAST:event_nifFocusGained
+
+    private void nifFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusLost
+        // TODO add your handling code here:
+        if (nif.getText().equals("")) {
+            nif.setText(placeholderNif);
+            nif.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_nifFocusLost
+
+    private void nifMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nifMouseEntered
+        // TODO add your handling code here:
+        nif.setFocusable(true);
+    }//GEN-LAST:event_nifMouseEntered
 
     /**
      * @param args the command line arguments
