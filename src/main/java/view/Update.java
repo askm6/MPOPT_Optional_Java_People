@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import  java.awt.Color;
+import java.awt.event.ActionEvent;
+
 
 
 /**
@@ -360,7 +362,11 @@ public class Update extends javax.swing.JDialog {
     private void photoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_photoMouseClicked
         photo.setIcon(null);
     }//GEN-LAST:event_photoMouseClicked
-
+   
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {
+        JOptionPane.showMessageDialog(this, "Person updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }    
+    
     private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
         // TODO add your handling code here:
         if (nif.getText().equals(placeholderNif)) {
