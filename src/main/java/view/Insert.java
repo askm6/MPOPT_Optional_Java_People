@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import  java.awt.Color;
+import javax.swing.JComponent;
 
 /**
  * Interface used to register a person. It is mandatory to enter at least the 
@@ -44,6 +45,17 @@ public class Insert extends javax.swing.JDialog {
         
         nif.setFocusable(false);
         name.setFocusable(false);
+        
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                JButton datePickerButton = (JButton) ((JComponent) dateOfBirth).getComponent(1);
+                datePickerButton.setText("Select a date");
+                datePickerButton.setPreferredSize(null);
+            } catch (Exception e) {
+                System.err.println("error");
+            }
+        }
+        );
     }
 
     public JButton getReset() {
@@ -362,6 +374,7 @@ public class Insert extends javax.swing.JDialog {
             showInsert();
             
         }
+        
     }//GEN-LAST:event_nifKeyPressed
 
   private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
