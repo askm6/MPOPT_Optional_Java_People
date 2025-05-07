@@ -19,6 +19,7 @@ import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import  java.awt.Color;
 import java.awt.event.ActionEvent;
+import javax.swing.JComponent;
 
 
 
@@ -42,6 +43,17 @@ public class Update extends javax.swing.JDialog {
         nif.setText(placeholderNif);
         nif.setForeground(Color.gray);
         nif.setFocusable(false);
+        
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            try {
+                JButton datePickerButton = (JButton) ((JComponent) dateOfBirth).getComponent(1);
+                datePickerButton.setText("Select a date");
+                datePickerButton.setPreferredSize(null);
+            } catch (Exception e) {
+                System.err.println("error");
+            }
+        }
+        );
 
     }
 
