@@ -173,4 +173,19 @@ public class DAOFile implements IDAO {
         insert(p);
     }
 
+    @Override
+    public int count() throws Exception {
+        int count = 0;
+        FileReader fr;
+        BufferedReader br;
+        fr = new FileReader(Routes.FILE.getDataFile());
+        br = new BufferedReader(fr);
+        String line;
+        line = br.readLine();
+        while (line != null) {
+            count = line.length();
+        }
+        return count;
+    }
+
 }
