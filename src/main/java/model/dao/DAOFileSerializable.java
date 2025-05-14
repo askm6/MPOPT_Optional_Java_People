@@ -172,4 +172,34 @@ public class DAOFileSerializable implements IDAO {
         insert(p);
     }
 
+    @Override
+    public int count() throws Exception {
+        int people = 0;
+        ObjectInputStream ois = null;
+        FileInputStream fIS = null;
+        try {
+            
+            fIS = new FileInputStream(Routes.FILES.getDataFile());
+            ois = new ObjectInputStream(fIS);
+            Person pr;
+            while ((pr = (Person) ois.readObject()) != null) {
+                people = ois.read();
+            }
+            ois.close();
+        } catch (java.io.EOFException ex) {
+            //Do nothing
+//            System.out.println("El archivo está vacío y no se puede crear"
+//                    + "el objeto ObjectInputStream");
+        } finally {
+            if (ois != null) {
+                ois.close();
+            }
+            if (fIS != null) {
+                fIS.close();
+            }
+        }
+        
+        return people;
+    }
+
 }

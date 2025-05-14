@@ -45,5 +45,9 @@ public class DAOHashMap implements IDAO {
     public ArrayList<Person> readAll() {
         return new ArrayList<>(people.values());
     }
-
+    
+    @Override
+    public int count() {
+        return people.size();
+    }
 }
