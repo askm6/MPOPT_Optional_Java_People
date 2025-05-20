@@ -184,6 +184,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 stmt.executeUpdate("create table if not exists " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + "("
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
+                        + "email varchar(100), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -228,6 +229,9 @@ public class ControllerImplementation implements IController, ActionListener {
 
     private void handleInsertPerson() {
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        if (insert.getEmail().getText() != null) {
+          p.setEmail(insert.getEmail().getText());
+        }
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
@@ -249,6 +253,9 @@ public class ControllerImplementation implements IController, ActionListener {
         Person pNew = read(p);
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
+            if (pNew.getEmail() != null) {
+                read.getEmail().setText(pNew.getEmail());
+            }
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -298,10 +305,14 @@ public class ControllerImplementation implements IController, ActionListener {
             Person pNew = read(p);
             if (pNew != null) {
                 update.getNam().setEnabled(true);
+                update.getEmail().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
+                if (pNew.getEmail() != null) {
+                    update.getEmail().setText(pNew.getEmail());
+                }
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -323,6 +334,9 @@ public class ControllerImplementation implements IController, ActionListener {
     public void handleUpdatePerson() {
         if (update != null) {
             Person p = new Person(update.getNam().getText(), update.getNif().getText());
+            if ((update.getEmail().getText()) != null) {
+                p.setEmail(update.getEmail().getText());
+            }
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -345,15 +359,20 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.addRow(new Object[i]);
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
-                if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 2);
+                if (s.get(i).getEmail() != null) {
+                    model.setValueAt(s.get(i).getEmail(), i, 2);
                 } else {
                     model.setValueAt("", i, 2);
                 }
-                if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 3);
+                if (s.get(i).getDateOfBirth() != null) {
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
                 } else {
-                    model.setValueAt("no", i, 3);
+                    model.setValueAt("", i, 3);
+                }
+                if (s.get(i).getPhoto() != null) {
+                    model.setValueAt("yes", i, 4);
+                } else {
+                    model.setValueAt("no", i, 4);
                 }
             }
             readAll.setVisible(true);

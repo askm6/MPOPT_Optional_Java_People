@@ -45,16 +45,17 @@ public class DAOFile implements IDAO {
         while (line != null) {
             String data[] = line.split("\t");
             if (data[1].equals(p.getNif())) {
+              
                 Date date = null;
-                if (!data[2].equals("null")) {
+                if (!data[3].equals("null")) {
                     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                    date = dateFormat.parse(data[2]);
+                    date = dateFormat.parse(data[3]);
                 }
                 ImageIcon photo = null;
-                if (!data[3].equals("null")) {
-                    photo = new ImageIcon(data[3]);
+                if (!data[4].equals("null")) {
+                    photo = new ImageIcon(data[4]);
                 }
-                personToRead = new Person(data[0], data[1], date, photo);
+                personToRead = new Person(data[0], data[1], data[2], date, photo);
                 break;
             }
             line = br.readLine();
@@ -75,15 +76,15 @@ public class DAOFile implements IDAO {
         while (line != null) {
             String data[] = line.split("\t");
             Date date = null;
-            if (!data[2].equals("null")) {
+            if (!data[3].equals("null")) {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                date = dateFormat.parse(data[2]);
+                date = dateFormat.parse(data[3]);
             }
             ImageIcon photo = null;
-            if (!data[3].equals("null")) {
-                photo = new ImageIcon(data[3]);
+            if (!data[4].equals("null")) {
+                photo = new ImageIcon(data[4]);
             }
-            people.add(new Person(data[0], data[1], date, photo));
+            people.add(new Person(data[0], data[1], data[2], date, photo));
             line = br.readLine();
         }
         br.close();
@@ -100,9 +101,9 @@ public class DAOFile implements IDAO {
         if (p.getDateOfBirth() != null) {
             DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
             String dateAsString = dateFormat.format(p.getDateOfBirth());
-            bw.write(p.getName() + "\t" + p.getNif() + "\t" + dateAsString + "\t");
+            bw.write(p.getName() + "\t" + p.getNif() + "\t" + p.getEmail() + "\t" + dateAsString + "\t");
         } else {
-            bw.write(p.getName() + "\t" + p.getNif() + "\t" + "null" + "\t");
+            bw.write(p.getName() + "\t" + p.getNif() + "\t" + p.getEmail() + "\t" + "null" + "\t");
         }
         if (p.getPhoto() != null) {
             FileOutputStream out;
@@ -148,7 +149,7 @@ public class DAOFile implements IDAO {
                     photoFile.delete();
                 }
             } else {
-                textoNuevo += d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3]
+                textoNuevo += d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3] + "\t" + d[4]
                         + "\n";
             }
         }
