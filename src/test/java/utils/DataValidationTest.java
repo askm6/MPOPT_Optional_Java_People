@@ -34,4 +34,17 @@ class DataValidationTest {
     void testCalculateNifLetter_InvalidInput() {
         assertThrows(NumberFormatException.class, () -> DataValidation.calculateNifLetter("ABCDEF"));
     }
+    
+    @Test
+    void testInvalid_PhoneNumber() {
+        assertThrows(Exception.class, () -> DataValidation.isValidPhoneNumber("123-45-6789"));
+    }
+    
+    void testValid_PhoneNumber() {
+        assertEquals("1234567890", DataValidation.isValidPhoneNumber("1234567890"));
+        assertEquals("123-456-7890", DataValidation.isValidPhoneNumber("123-456-7890"));
+        assertEquals("(123) 456-7890", DataValidation.isValidPhoneNumber("(123) 456-7890"));
+        assertEquals("123 456 7890", DataValidation.isValidPhoneNumber("123 456 7890"));
+        assertEquals("+1 123-456-7890", DataValidation.isValidPhoneNumber("+1 123-456-7890"));
+    }
 }

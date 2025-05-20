@@ -52,9 +52,9 @@ public class DAOFile implements IDAO {
                 }
                 ImageIcon photo = null;
                 if (!data[3].equals("null")) {
-                    photo = new ImageIcon(data[3]);
+                    photo = new ImageIcon(data[4]);
                 }
-                personToRead = new Person(data[0], data[1], date, photo);
+                personToRead = new Person(data[0], data[1], date, data[3], photo);
                 break;
             }
             line = br.readLine();
@@ -64,7 +64,7 @@ public class DAOFile implements IDAO {
     }
     
     @Override
-    public ArrayList<Person> readAll() throws FileNotFoundException, IOException, ParseException {
+    public ArrayList<Person> readAll() throws FileNotFoundException, IOException, ParseException, Exception {
         ArrayList<Person> people = new ArrayList<>();
         FileReader fr;
         BufferedReader br;
@@ -80,10 +80,10 @@ public class DAOFile implements IDAO {
                 date = dateFormat.parse(data[2]);
             }
             ImageIcon photo = null;
-            if (!data[3].equals("null")) {
-                photo = new ImageIcon(data[3]);
+            if (!data[4].equals("null")) {
+                photo = new ImageIcon(data[4]);
             }
-            people.add(new Person(data[0], data[1], date, photo));
+            people.add(new Person(data[0], data[1], date, data[3], photo));
             line = br.readLine();
         }
         br.close();

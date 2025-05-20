@@ -3,11 +3,13 @@ package model.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
+import utils.DataValidation;
 
 /**
  * Encapsulated class that defines the type of entity that will manage the application.
@@ -21,6 +23,7 @@ public class Person implements Serializable{
     private String nif;
     private String name;
     private Date dateOfBirth;
+    private String phoneNumber;
     @Transient
     private ImageIcon photo;
     @Lob
@@ -57,10 +60,11 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, Date dateOfBirth, ImageIcon photo) {
+    public Person(String name, String nif, Date dateOfBirth, String phoneNumber, ImageIcon photo) throws Exception {
         this.name = name;      
         this.nif = nif;
         this.dateOfBirth = dateOfBirth;
+        setPhoneNumber(phoneNumber);
         this.photo = photo;
     }
 
@@ -103,6 +107,17 @@ public class Person implements Serializable{
 
     public void setPhotoOnlyJPA(byte[] photoOnlyJPA) {
         this.photoOnlyJPA = photoOnlyJPA;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) throws PersonException {
+        if (phoneNumber != null && !phoneNumber.isEmpty() && !DataValidation.isValidPhoneNumber(phoneNumber)) {
+            throw new PersonException("Invalid phone number format");
+        }
+        this.phoneNumber = phoneNumber;
     }
         
     /**
@@ -147,7 +162,7 @@ public class Person implements Serializable{
     @Override
     public String toString() {
         return "Person {" + "Name = " + name + ", NIF = " + nif
-                + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo!=null) + "}";
+                + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = " + (photo!=null) + "}";
     }
 
 }
