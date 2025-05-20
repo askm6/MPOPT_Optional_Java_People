@@ -235,15 +235,21 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
-        if (insert.getDateOfBirth().getModel().getValue() != null) {
-            p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
+        try {
+            Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+            if (insert.getDateOfBirth().getModel().getValue() != null) {
+                p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
+            }
+            String phone = insert.getPhoneNumber().getText();
+            p.setPhoneNumber(phone);
+            if (insert.getPhoto().getIcon() != null) {
+                p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
+            }
+            insert(p);
+            insert.getReset().doClick();
+        } catch (PersonException ex) {
+            JOptionPane.showMessageDialog(insert, ex.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (insert.getPhoto().getIcon() != null) {
-            p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
-        }
-        insert(p);
-        insert.getReset().doClick();
     }
 
     private void handleReadAction() {
@@ -263,6 +269,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 DateModel<Calendar> dateModel = (DateModel<Calendar>) read.getDateOfBirth().getModel();
                 dateModel.setValue(calendar);
             }
+            read.getPhoneNumber().setText(pNew.getPhoneNumber());
             //To avoid charging former images
             if (pNew.getPhoto() != null) {
                 pNew.getPhoto().getImage().flush();
@@ -307,6 +314,7 @@ public class ControllerImplementation implements IController, ActionListener {
             if (pNew != null) {
                 update.getNam().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
+                update.getPhoneNumber().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
@@ -316,6 +324,7 @@ public class ControllerImplementation implements IController, ActionListener {
                     DateModel<Calendar> dateModel = (DateModel<Calendar>) update.getDateOfBirth().getModel();
                     dateModel.setValue(calendar);
                 }
+                update.getPhoneNumber().setText(pNew.getPhoneNumber());
                 if (pNew.getPhoto() != null) {
                     pNew.getPhoto().getImage().flush();
                     update.getPhoto().setIcon(pNew.getPhoto());
@@ -330,15 +339,20 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText());
-            if ((update.getDateOfBirth().getModel().getValue()) != null) {
-                p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
+            try {
+                Person p = new Person(update.getNam().getText(), update.getNif().getText());
+                if ((update.getDateOfBirth().getModel().getValue()) != null) {
+                    p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
+                }
+                p.setPhoneNumber(update.getPhoneNumber().getText());
+                if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
+                    p.setPhoto((ImageIcon) update.getPhoto().getIcon());
+                }
+                update(p);
+                update.getReset().doClick();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
-                p.setPhoto((ImageIcon) update.getPhoto().getIcon());
-            }
-            update(p);
-            update.getReset().doClick();
         }
     }
 
@@ -358,10 +372,11 @@ public class ControllerImplementation implements IController, ActionListener {
                 } else {
                     model.setValueAt("", i, 2);
                 }
+                model.setValueAt(s.get(i).getPhoneNumber(), i, 3);
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 3);
+                    model.setValueAt("yes", i, 4);
                 } else {
-                    model.setValueAt("no", i, 3);
+                    model.setValueAt("no", i, 4);
                 }
             }
             readAll.setVisible(true);

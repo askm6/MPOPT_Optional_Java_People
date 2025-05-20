@@ -14,12 +14,13 @@ class PersonTest {
     private String nif = "12345678X";
     private String name = "John Doe";
     private Date dateOfBirth = new Date();
+    private String phoneNumber = ("+34 600 555 123");
     private ImageIcon photo = new ImageIcon();
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         person = new Person(nif);
-        personWithFullData = new Person(name, nif, dateOfBirth, photo);
+        personWithFullData = new Person(name, nif, dateOfBirth, phoneNumber, photo);
     }
 
     @Test
@@ -42,17 +43,21 @@ class PersonTest {
         assertEquals(name, personWithFullData.getName());
         assertEquals(nif, personWithFullData.getNif());
         assertEquals(dateOfBirth, personWithFullData.getDateOfBirth());
+        assertEquals(phoneNumber, personWithFullData.getPhoneNumber());
         assertEquals(photo, personWithFullData.getPhoto());
     }
 
     @Test
-    void testGettersAndSetters() {
+    void testGettersAndSetters() throws PersonException {
         person.setName("Jane Doe");
         assertEquals("Jane Doe", person.getName());
 
         Date newDateOfBirth = new Date(0);
         person.setDateOfBirth(newDateOfBirth);
         assertEquals(newDateOfBirth, person.getDateOfBirth());
+        
+        person.setPhoneNumber("600-555-123");
+        assertEquals("600-555-123", person.getPhoneNumber());
 
         ImageIcon newPhoto = new ImageIcon("path/to/photo.jpg");
         person.setPhoto(newPhoto);
@@ -95,7 +100,7 @@ class PersonTest {
     @Test
     void testToString() {
         String expected = "Person {Name = " + name + ", NIF = " + nif
-                + ", DateOfBirth = " + dateOfBirth + ", Photo = true}";
+                + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = true}";
         assertEquals(expected, personWithFullData.toString());
     }
 }

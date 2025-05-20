@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package utils;
+import java.util.regex.*;
 
 /**
  * @author Francesc Perez 
@@ -25,6 +26,11 @@ public class DataValidation {
         String [] letter = {"T","R","W","A","G","M","Y","F","P","D","X","B",
             "N","J","Z","S","Q","V","H","L","C","K","E"};
         return nifNoLetter + letter[Integer.parseInt(nifNoLetter)%23];
+    }
+    
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        String phoneRegex = "^\\+?[0-9]{1,4}?[-.\\s]?(\\d{1,3})?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$";
+        return phoneNumber != null && Pattern.matches(phoneRegex, phoneNumber);
     }
 
 }

@@ -19,6 +19,7 @@ public class ReadAll extends javax.swing.JDialog {
         table.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
         table.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
         table.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        table.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
         setLocationRelativeTo(null);
     }
 
@@ -50,14 +51,14 @@ public class ReadAll extends javax.swing.JDialog {
 
             },
             new String [] {
-                "NIF", "Name", "Date of Birth", "Photo"
+                "NIF", "Name", "Date of Birth", "Phone Number", "Photo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
