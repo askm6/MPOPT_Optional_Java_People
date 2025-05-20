@@ -21,6 +21,7 @@ import static utils.DataValidation.validateEmail;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -48,10 +49,10 @@ public class Update extends javax.swing.JDialog {
         return name;
     }
 
-  public JTextField getEmail() {
-    return email;
-  }
-  
+    public JTextField getEmail() {
+        return email;
+    }
+
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
@@ -322,7 +323,7 @@ public class Update extends javax.swing.JDialog {
         if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);  
+            nif.setEditable(false);
             read.doClick();
         }
     }//GEN-LAST:event_nifKeyPressed
@@ -348,7 +349,7 @@ public class Update extends javax.swing.JDialog {
         name.setText("");
         email.setText("");
         dateOfBirth.getModel().setValue(null);
-        photo.setIcon(null); 
+        photo.setIcon(null);
         name.setEnabled(false);
         email.setEnabled(false);
         photo.setEnabled(false);
@@ -382,7 +383,7 @@ public class Update extends javax.swing.JDialog {
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
         if (name.getText().length() == 0) {
             update.setEnabled(false);
-        }else if(!nif.getText().isEmpty()){
+        } else if (!nif.getText().isEmpty()) {
             update.setEnabled(true);
         }
     }//GEN-LAST:event_nameKeyReleased
@@ -396,25 +397,25 @@ public class Update extends javax.swing.JDialog {
     }//GEN-LAST:event_updateActionPerformed
 
   private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
-    if (email.getText().isEmpty() || validateEmail(email.getText())) {
-      update.setEnabled(true);
-    } else {
-      update.setEnabled(false);
-    }
+      if (email.getText().isEmpty() || validateEmail(email.getText())) {
+          update.setEnabled(true);
+      } else {
+          update.setEnabled(false);
+      }
   }//GEN-LAST:event_emailKeyReleased
 
   private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-    // TODO add your handling code here:
+      // TODO add your handling code here:
   }//GEN-LAST:event_emailKeyTyped
 
   private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-    // TODO add your handling code here:
+      // TODO add your handling code here:
   }//GEN-LAST:event_emailActionPerformed
 
   private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
-    if (!email.getText().isEmpty() && !validateEmail(email.getText())) {
-      JOptionPane.showMessageDialog(update, "Invalid email format.", getTitle(), JOptionPane.WARNING_MESSAGE);
-    }
+      if (!email.getText().isEmpty() && !validateEmail(email.getText())) {
+          JOptionPane.showMessageDialog(update, "Invalid email format.", getTitle(), JOptionPane.WARNING_MESSAGE);
+      }
   }//GEN-LAST:event_emailFocusLost
 
     /**

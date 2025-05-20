@@ -10,14 +10,16 @@ import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
 /**
- * Encapsulated class that defines the type of entity that will manage the application.
+ * Encapsulated class that defines the type of entity that will manage the
+ * application.
+ *
  * @author Fran Perez
  * @version 1.1.0
  */
 @Entity
-public class Person implements Serializable{
+public class Person implements Serializable {
 
-    @Id 
+    @Id
     private String nif;
     private String name;
     private String email;
@@ -27,20 +29,22 @@ public class Person implements Serializable{
     @Lob
     private byte[] photoOnlyJPA;
 
-    public Person(){
-        
+    public Person() {
+
     }
-    
+
     /**
      * Constructor to validate new person. Two persons cannot have the same NIF
-     * @param nif 
+     *
+     * @param nif
      */
     public Person(String nif) {
         this.nif = nif;
     }
-    
+
     /**
      * Constructor with mandatory data.
+     *
      * @author Fran Perez
      * @version 1.0
      */
@@ -51,16 +55,17 @@ public class Person implements Serializable{
 
     /**
      * Constructor with all data
+     *
      * @author Fran Perez
      * @version 1.0
      * @param name
      * @param nif
-   * @param email
+     * @param email
      * @param dateOfBirth
      * @param photo
      */
     public Person(String name, String nif, String email, Date dateOfBirth, ImageIcon photo) {
-        this.name = name;      
+        this.name = name;
         this.nif = nif;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
@@ -108,18 +113,19 @@ public class Person implements Serializable{
         this.photoOnlyJPA = photoOnlyJPA;
     }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-        
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     /**
      * Function used to compare two Personas. There cannot be two or more people
      * with the same ID. Actually it isn't used in this project.
-     * @return 
+     *
+     * @return
      */
     @Override
     public int hashCode() {
@@ -129,10 +135,11 @@ public class Person implements Serializable{
     }
 
     /**
-     * Function used to compare two Personas in ArrayList and HashMap 
+     * Function used to compare two Personas in ArrayList and HashMap
      * structures. There cannot be two or more people with the same ID.
+     *
      * @param obj
-     * @return 
+     * @return
      */
     @Override
     public boolean equals(Object obj) {
@@ -149,16 +156,16 @@ public class Person implements Serializable{
         return Objects.equals(this.hashCode(), other.hashCode());
     }
 
-    
     /**
-     * Function sed to show person's inform by console. Only for debugging 
+     * Function sed to show person's inform by console. Only for debugging
      * pourposes.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
         return "Person {" + "Name = " + name + ", NIF = " + nif
-                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo!=null) + "}";
+                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo != null) + "}";
     }
 
 }

@@ -230,7 +230,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private void handleInsertPerson() {
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
         if (insert.getEmail().getText() != null) {
-          p.setEmail(insert.getEmail().getText());
+            p.setEmail(insert.getEmail().getText());
         }
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
@@ -281,14 +281,14 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleDeletePerson() {
         if (delete != null) {
-          int confirmation = JOptionPane.showConfirmDialog( menu, "Are you sure you want to delete this person?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
-          System.out.print(confirmation);
-          if (confirmation == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(menu, "Person deleted successfully!");
-            Person p = new Person(delete.getNif().getText());
-            delete(p);
-            delete.getReset().doClick();
-          }
+            int confirmation = JOptionPane.showConfirmDialog(menu, "Are you sure you want to delete this person?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            System.out.print(confirmation);
+            if (confirmation == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(menu, "Person deleted successfully!");
+                Person p = new Person(delete.getNif().getText());
+                delete(p);
+                delete.getReset().doClick();
+            }
         }
     }
 
@@ -383,21 +383,21 @@ public class ControllerImplementation implements IController, ActionListener {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-        menu,
-        "Are you sure you want to delete all registered people?", 
-        "Delete All - People v1.1.0",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,
-        options,
-        options[1] // Default selection is "No"
-    );
+                menu,
+                "Are you sure you want to delete all registered people?",
+                "Delete All - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
 
         if (answer == 0) {
             deleteAll();
         }
     }
-    
+
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,

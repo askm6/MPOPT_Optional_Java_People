@@ -20,8 +20,9 @@ import org.jdatepicker.JDatePicker;
 import static utils.DataValidation.validateEmail;
 
 /**
- * Interface used to register a person. It is mandatory to enter at least the 
+ * Interface used to register a person. It is mandatory to enter at least the
  * NIF and the name.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -59,10 +60,10 @@ public class Insert extends javax.swing.JDialog {
         return photo;
     }
 
-  public JTextField getEmail() {
-    return email;
-  }
-    
+    public JTextField getEmail() {
+        return email;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -313,7 +314,7 @@ public class Insert extends javax.swing.JDialog {
         } else {
             insert.setEnabled(false);
         }
-        
+
         if (email.getText().isEmpty() || validateEmail(email.getText())) {
             insert.setEnabled(true);
         } else {
@@ -383,29 +384,29 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyPressed
 
   private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-    // TODO add your handling code here:
+      // TODO add your handling code here:
   }//GEN-LAST:event_insertActionPerformed
 
   private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
-    showInsert();
+      showInsert();
   }//GEN-LAST:event_emailKeyReleased
 
   private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-    // TODO add your handling code here:
+      // TODO add your handling code here:
   }//GEN-LAST:event_emailKeyTyped
 
   private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
-    // TODO add your handling code here:
+      // TODO add your handling code here:
   }//GEN-LAST:event_nifActionPerformed
 
   private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-    // TODO add your handling code here:
+      // TODO add your handling code here:
   }//GEN-LAST:event_emailActionPerformed
 
   private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
-    if (!email.getText().isEmpty() && !validateEmail(email.getText())) {
-      JOptionPane.showMessageDialog(insert, "Invalid email format.", getTitle(), JOptionPane.WARNING_MESSAGE);
-    }
+      if (!email.getText().isEmpty() && !validateEmail(email.getText())) {
+          JOptionPane.showMessageDialog(insert, "Invalid email format.", getTitle(), JOptionPane.WARNING_MESSAGE);
+      }
   }//GEN-LAST:event_emailFocusLost
 
   // Variables declaration - do not modify//GEN-BEGIN:variables

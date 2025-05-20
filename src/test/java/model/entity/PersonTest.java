@@ -52,7 +52,7 @@ class PersonTest {
     void testGettersAndSetters() {
         person.setName("Jane Doe");
         assertEquals("Jane Doe", person.getName());
-        
+
         person.setEmail("example@gmail.com");
         assertEquals("example@gmail.com", person.getEmail());
 
