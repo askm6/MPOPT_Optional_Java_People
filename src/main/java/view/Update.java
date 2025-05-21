@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import static utils.DataValidation.validateEmail;
 import  java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JComponent;
@@ -25,6 +26,7 @@ import javax.swing.JComponent;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -69,6 +71,10 @@ public class Update extends javax.swing.JDialog {
         return name;
     }
 
+    public JTextField getEmail() {
+        return email;
+    }
+
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
     }
@@ -111,6 +117,7 @@ public class Update extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         read = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
         phoneNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -307,6 +314,49 @@ public class Update extends javax.swing.JDialog {
         getContentPane().add(read, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Email");
+        jLabel4.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel4.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel4.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel4, gridBagConstraints);
+
+        email.setMaximumSize(new java.awt.Dimension(400, 22));
+        email.setMinimumSize(new java.awt.Dimension(400, 22));
+        email.setPreferredSize(new java.awt.Dimension(400, 22));
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
+          public void focusLost(java.awt.event.FocusEvent evt) {
+            emailFocusLost(evt);
+          }
+        });
+        email.addActionListener(new java.awt.event.ActionListener() {
+          public void actionPerformed(java.awt.event.ActionEvent evt) {
+            emailActionPerformed(evt);
+          }
+        });
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
+          public void keyReleased(java.awt.event.KeyEvent evt) {
+            emailKeyReleased(evt);
+          }
+          public void keyTyped(java.awt.event.KeyEvent evt) {
+            emailKeyTyped(evt);
+          }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(email, gridBagConstraints);
+    
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Phone Number");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -356,9 +406,12 @@ public class Update extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText(placeholderNif);
         nif.setForeground(Color.gray);
+        name.setText("");
+        email.setText("");
         dateOfBirth.getModel().setValue(null);
-        photo.setIcon(null); 
+        photo.setIcon(null);
         name.setEnabled(false);
+        email.setEnabled(false);
         photo.setEnabled(false);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -390,7 +443,7 @@ public class Update extends javax.swing.JDialog {
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
         if (name.getText().length() == 0) {
             update.setEnabled(false);
-        }else if(!nif.getText().isEmpty()){
+        } else if (!nif.getText().isEmpty()) {
             update.setEnabled(true);
         }
     }//GEN-LAST:event_nameKeyReleased
@@ -425,16 +478,40 @@ public class Update extends javax.swing.JDialog {
         nif.setFocusable(true);
     }//GEN-LAST:event_nifMouseEntered
 
+  private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
+      if (email.getText().isEmpty() || validateEmail(email.getText())) {
+          update.setEnabled(true);
+      } else {
+          update.setEnabled(false);
+      }
+  }//GEN-LAST:event_emailKeyReleased
+
+  private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+      // TODO add your handling code here:
+  }//GEN-LAST:event_emailKeyTyped
+
+  private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+      // TODO add your handling code here:
+  }//GEN-LAST:event_emailActionPerformed
+
+  private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
+      if (!email.getText().isEmpty() && !validateEmail(email.getText())) {
+          JOptionPane.showMessageDialog(update, "Invalid email format.", getTitle(), JOptionPane.WARNING_MESSAGE);
+      }
+  }//GEN-LAST:event_emailFocusLost
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;

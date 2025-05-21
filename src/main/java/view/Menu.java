@@ -8,8 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
- * This class defines the main menu of the application. Actions that can be 
+ * This class defines the main menu of the application. Actions that can be
  * done: insert, read, delete, update, readAll.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -17,7 +18,7 @@ public class Menu extends javax.swing.JFrame {
 
     public Menu() {
         initComponents();
-         try {
+        try {
             setIconImage(new ImageIcon(ImageIO.read(new File("images/logo.png"))).getImage());
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Application logo is not available", "WARNING MESSAGE", JOptionPane.WARNING_MESSAGE);
@@ -43,7 +44,7 @@ public class Menu extends javax.swing.JFrame {
     public JButton getReadAll() {
         return readAll;
     }
-    
+
     public JButton getDeleteAll() {
         return deleteAll;
     }

@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
  * functions so that they can work with files. User data is saved in the
  * "dataFile.txt" file and the associated photos, if any, are saved with the
  * name NIF.png in the "Photos" folder.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -45,16 +46,17 @@ public class DAOFile implements IDAO {
         while (line != null) {
             String data[] = line.split("\t");
             if (data[1].equals(p.getNif())) {
+
                 Date date = null;
-                if (!data[2].equals("null")) {
+                if (!data[3].equals("null")) {
                     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                    date = dateFormat.parse(data[2]);
+                    date = dateFormat.parse(data[3]);
                 }
                 ImageIcon photo = null;
-                if (!data[3].equals("null")) {
+                if (!data[4].equals("null")) {
                     photo = new ImageIcon(data[4]);
                 }
-                personToRead = new Person(data[0], data[1], date, data[3], photo);
+                personToRead = new Person(data[0], data[1], data[2], date, data[3], photo);
                 break;
             }
             line = br.readLine();
@@ -62,7 +64,7 @@ public class DAOFile implements IDAO {
         br.close();
         return personToRead;
     }
-    
+
     @Override
     public ArrayList<Person> readAll() throws FileNotFoundException, IOException, ParseException, Exception {
         ArrayList<Person> people = new ArrayList<>();
@@ -75,15 +77,15 @@ public class DAOFile implements IDAO {
         while (line != null) {
             String data[] = line.split("\t");
             Date date = null;
-            if (!data[2].equals("null")) {
+            if (!data[3].equals("null")) {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                date = dateFormat.parse(data[2]);
+                date = dateFormat.parse(data[3]);
             }
             ImageIcon photo = null;
             if (!data[4].equals("null")) {
                 photo = new ImageIcon(data[4]);
             }
-            people.add(new Person(data[0], data[1], date, data[3], photo));
+            people.add(new Person(data[0], data[1], data[2], date, data[3], photo));
             line = br.readLine();
         }
         br.close();
@@ -100,14 +102,14 @@ public class DAOFile implements IDAO {
         if (p.getDateOfBirth() != null) {
             DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
             String dateAsString = dateFormat.format(p.getDateOfBirth());
-            bw.write(p.getName() + "\t" + p.getNif() + "\t" + dateAsString + "\t");
+            bw.write(p.getName() + "\t" + p.getNif() + "\t" + p.getEmail() + "\t" + dateAsString + "\t");
         } else {
-            bw.write(p.getName() + "\t" + p.getNif() + "\t" + "null" + "\t");
+            bw.write(p.getName() + "\t" + p.getNif() + "\t" + p.getEmail() + "\t" + "null" + "\t");
         }
         if (p.getPhoto() != null) {
             FileOutputStream out;
             BufferedOutputStream outB;
-            String fileName = Routes.FILE.getFolderPhotos() + sep + p.getNif() + ".png";         
+            String fileName = Routes.FILE.getFolderPhotos() + sep + p.getNif() + ".png";
             out = new FileOutputStream(fileName);
             outB = new BufferedOutputStream(out);
             BufferedImage bi = new BufferedImage(p.getPhoto().getImage().getWidth(null),
@@ -148,7 +150,7 @@ public class DAOFile implements IDAO {
                     photoFile.delete();
                 }
             } else {
-                textoNuevo += d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3]
+                textoNuevo += d[0] + "\t" + d[1] + "\t" + d[2] + "\t" + d[3] + "\t" + d[4]
                         + "\n";
             }
         }
@@ -163,10 +165,11 @@ public class DAOFile implements IDAO {
         file.delete();
         file.createNewFile();
         file = new File(Routes.FILE.getFolderPhotos());
-        for(File f : file.listFiles())
+        for (File f : file.listFiles()) {
             f.delete();
+        }
     }
-    
+
     @Override
     public void update(Person p) throws IOException {
         delete(p);

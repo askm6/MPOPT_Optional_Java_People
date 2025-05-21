@@ -10,26 +10,28 @@ import javax.swing.JOptionPane;
 import start.Routes;
 
 /**
- * This class defines the structure of the selection screen for the type of 
- * storage device chosen by the user before starting to interact with the 
+ * This class defines the structure of the selection screen for the type of
+ * storage device chosen by the user before starting to interact with the
  * application.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
 public class DataStorageSelection extends javax.swing.JFrame {
-    
+
     //Instance variable that saves the storage system chosen by the user, by 
     //default, it will be the "ArrayList".
     javax.swing.JCheckBox itemSelected;
 
     /**
      * Function that loads the Data Storage System Selection Menu View.
+     *
      * @author Francesc Perez
      * @version 1.1.0
      */
     public DataStorageSelection() {
         initComponents();
-        String pathImageLogo = Routes.APPIMAGES.getFolderPath()+ File.separator + "logo.png";
+        String pathImageLogo = Routes.APPIMAGES.getFolderPath() + File.separator + "logo.png";
         try {
             setIconImage(new ImageIcon(ImageIO.read(new File(pathImageLogo))).getImage());
         } catch (IOException ex) {
@@ -215,9 +217,10 @@ public class DataStorageSelection extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * This method allows you to select a single storage system, by default it 
-     * is the "ArrayList". Only when there is a selection is the accept button 
+     * This method allows you to select a single storage system, by default it
+     * is the "ArrayList". Only when there is a selection is the accept button
      * activated so that the event can be sent to the controller.
+     *
      * @param jcb checkbox selected by user
      * @author Francesc Perez
      * @version 1.1.0
@@ -227,7 +230,7 @@ public class DataStorageSelection extends javax.swing.JFrame {
             itemSelected = jcb;
             for (Component component : getContentPane().getComponents()) {
                 if (component instanceof javax.swing.JCheckBox && component != jcb) {
-                    ((javax.swing.JCheckBox)component).setSelected(false);
+                    ((javax.swing.JCheckBox) component).setSelected(false);
                 }
             }
             accept.setEnabled(true);
@@ -238,14 +241,15 @@ public class DataStorageSelection extends javax.swing.JFrame {
     }
 
     /**
-     * This method allows the controller to know the storage system chosen by 
+     * This method allows the controller to know the storage system chosen by
      * the user.
+     *
      * @return c Returns the accept button and the selected chechbox.
      * @author Francesc Perez
      * @version 1.1.0
      */
-    public Component [] getAccept() {
-        Component c [] = new Component[2];
+    public Component[] getAccept() {
+        Component c[] = new Component[2];
         c[0] = accept;
         c[1] = itemSelected;
         return c;
@@ -276,9 +280,10 @@ public class DataStorageSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_dataBaseCheckActionPerformed
 
     /**
-     * If the user selects the cancel option when starting the application, 
-     * the program closes.
-     * @param evt 
+     * If the user selects the cancel option when starting the application, the
+     * program closes.
+     *
+     * @param evt
      */
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         System.exit(0);

@@ -45,6 +45,10 @@ public class Read extends javax.swing.JDialog {
     public JTextField getNam() {
         return name;
     }
+    
+    public JTextField getEmail() {
+        return email;
+    }
 
     public JDatePicker getDateOfBirth() {
         return dateOfBirth;
@@ -91,6 +95,8 @@ public class Read extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -103,6 +109,11 @@ public class Read extends javax.swing.JDialog {
         read.setMaximumSize(new java.awt.Dimension(187, 33));
         read.setMinimumSize(new java.awt.Dimension(187, 33));
         read.setPreferredSize(new java.awt.Dimension(187, 33));
+        read.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+              readActionPerformed(evt);
+            }
+          });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
@@ -260,6 +271,39 @@ public class Read extends javax.swing.JDialog {
         getContentPane().add(reset, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Email");
+        jLabel4.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel4.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel4.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel4, gridBagConstraints);
+
+        email.setMaximumSize(new java.awt.Dimension(400, 22));
+        email.setMinimumSize(new java.awt.Dimension(400, 22));
+        email.setPreferredSize(new java.awt.Dimension(400, 22));
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
+          public void keyReleased(java.awt.event.KeyEvent evt) {
+            emailKeyReleased(evt);
+          }
+          public void keyTyped(java.awt.event.KeyEvent evt) {
+            emailKeyTyped(evt);
+          }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(email, gridBagConstraints);
+  
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Phone Number");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -292,6 +336,7 @@ public class Read extends javax.swing.JDialog {
         nif.setText(placeholderNif);
         nif.setEditable(true);
         name.setText("");
+        email.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -322,7 +367,7 @@ public class Read extends javax.swing.JDialog {
             read.doClick();
         }
     }//GEN-LAST:event_nifKeyPressed
-
+    
     private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
         // TODO add your handling code here:
         if (nif.getText().equals(placeholderNif)) {
@@ -343,13 +388,31 @@ public class Read extends javax.swing.JDialog {
         // TODO add your handling code here:
         nif.setFocusable(true);
     }//GEN-LAST:event_nifMouseEntered
+  
+    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailKeyReleased
+
+    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailKeyTyped
+
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameActionPerformed
+
+    private void readActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_readActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;

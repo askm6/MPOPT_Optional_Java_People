@@ -42,6 +42,7 @@
               <Table columnCount="5" rowCount="0">
                 <Column editable="false" title="NIF" type="java.lang.String"/>
                 <Column editable="false" title="Name" type="java.lang.String"/>
+                <Column editable="false" title="Email" type="java.lang.String"/>
                 <Column editable="false" title="Date of Birth" type="java.lang.Object"/>
                 <Column editable="false" title="Phone Number" type="java.lang.String"/>
                 <Column editable="false" title="Photo" type="java.lang.String"/>

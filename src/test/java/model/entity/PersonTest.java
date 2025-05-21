@@ -13,6 +13,7 @@ class PersonTest {
     private Person personWithFullData;
     private String nif = "12345678X";
     private String name = "John Doe";
+    private String email = "test@example.com";
     private Date dateOfBirth = new Date();
     private String phoneNumber = ("+34 600 555 123");
     private ImageIcon photo = new ImageIcon();
@@ -20,13 +21,14 @@ class PersonTest {
     @BeforeEach
     void setUp() throws Exception {
         person = new Person(nif);
-        personWithFullData = new Person(name, nif, dateOfBirth, phoneNumber, photo);
+        personWithFullData = new Person(name, email, nif, dateOfBirth, phoneNumber, photo);
     }
 
     @Test
     void testConstructorNifOnly() {
         assertEquals(nif, person.getNif());
         assertNull(person.getName());
+        assertNull(person.getEmail());
         assertNull(person.getDateOfBirth());
         assertNull(person.getPhoto());
     }
@@ -42,6 +44,7 @@ class PersonTest {
     void testConstructorFullData() {
         assertEquals(name, personWithFullData.getName());
         assertEquals(nif, personWithFullData.getNif());
+        assertEquals(email, personWithFullData.getEmail());
         assertEquals(dateOfBirth, personWithFullData.getDateOfBirth());
         assertEquals(phoneNumber, personWithFullData.getPhoneNumber());
         assertEquals(photo, personWithFullData.getPhoto());
@@ -51,6 +54,9 @@ class PersonTest {
     void testGettersAndSetters() throws PersonException {
         person.setName("Jane Doe");
         assertEquals("Jane Doe", person.getName());
+
+        person.setEmail("example@gmail.com");
+        assertEquals("example@gmail.com", person.getEmail());
 
         Date newDateOfBirth = new Date(0);
         person.setDateOfBirth(newDateOfBirth);
@@ -100,7 +106,7 @@ class PersonTest {
     @Test
     void testToString() {
         String expected = "Person {Name = " + name + ", NIF = " + nif
-                + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = true}";
+                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = true}";
         assertEquals(expected, personWithFullData.toString());
     }
 }
