@@ -17,6 +17,7 @@ import view.Menu;
 import view.Read;
 import view.ReadAll;
 import view.Update;
+import view.Count;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,9 @@ import javax.persistence.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import utils.Constants;
@@ -59,6 +63,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Delete delete;
     private Update update;
     private ReadAll readAll;
+    private Count count;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -113,6 +118,8 @@ public class ControllerImplementation implements IController, ActionListener {
             handleReadAll();
         } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
+        } else if (e.getSource() == count.getCount()) {
+            handleCount();
         }
     }
 
@@ -219,6 +226,7 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDelete().addActionListener(this);
         menu.getReadAll().addActionListener(this);
         menu.getDeleteAll().addActionListener(this);
+        menu.getCount().addActionListener(this);
     }
 
     private void handleInsertAction() {
@@ -228,18 +236,24 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
-        if (insert.getEmail().getText() != null) {
-            p.setEmail(insert.getEmail().getText());
+        try {
+            Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+            if (insert.getEmail().getText() != null) {
+                p.setEmail(insert.getEmail().getText());
+            }
+            if (insert.getDateOfBirth().getModel().getValue() != null) {
+                p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
+            }
+            String phone = insert.getPhoneNumber().getText();
+            p.setPhoneNumber(phone);
+            if (insert.getPhoto().getIcon() != null) {
+                p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
+            }
+            insert(p);
+            insert.getReset().doClick();
+        } catch (PersonException ex) {
+            JOptionPane.showMessageDialog(insert, ex.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (insert.getDateOfBirth().getModel().getValue() != null) {
-            p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
-        }
-        if (insert.getPhoto().getIcon() != null) {
-            p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
-        }
-        insert(p);
-        insert.getReset().doClick();
     }
 
     private void handleReadAction() {
@@ -262,6 +276,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 DateModel<Calendar> dateModel = (DateModel<Calendar>) read.getDateOfBirth().getModel();
                 dateModel.setValue(calendar);
             }
+            read.getPhoneNumber().setText(pNew.getPhoneNumber());
             //To avoid charging former images
             if (pNew.getPhoto() != null) {
                 pNew.getPhoto().getImage().flush();
@@ -307,6 +322,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getNam().setEnabled(true);
                 update.getEmail().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
+                update.getPhoneNumber().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
@@ -319,6 +335,7 @@ public class ControllerImplementation implements IController, ActionListener {
                     DateModel<Calendar> dateModel = (DateModel<Calendar>) update.getDateOfBirth().getModel();
                     dateModel.setValue(calendar);
                 }
+                update.getPhoneNumber().setText(pNew.getPhoneNumber());
                 if (pNew.getPhoto() != null) {
                     pNew.getPhoto().getImage().flush();
                     update.getPhoto().setIcon(pNew.getPhoto());
@@ -333,18 +350,23 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText());
-            if ((update.getEmail().getText()) != null) {
-                p.setEmail(update.getEmail().getText());
+            try {
+                Person p = new Person(update.getNam().getText(), update.getNif().getText());
+                if ((update.getEmail().getText()) != null) {
+                    p.setEmail(update.getEmail().getText());
+                }
+                if ((update.getDateOfBirth().getModel().getValue()) != null) {
+                    p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
+                }
+                p.setPhoneNumber(update.getPhoneNumber().getText());
+                if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
+                    p.setPhoto((ImageIcon) update.getPhoto().getIcon());
+                }
+                update(p);
+                update.getReset().doClick();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            if ((update.getDateOfBirth().getModel().getValue()) != null) {
-                p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
-            }
-            if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
-                p.setPhoto((ImageIcon) update.getPhoto().getIcon());
-            }
-            update(p);
-            update.getReset().doClick();
         }
     }
 
@@ -369,10 +391,11 @@ public class ControllerImplementation implements IController, ActionListener {
                 } else {
                     model.setValueAt("", i, 3);
                 }
+                model.setValueAt(s.get(i).getPhoneNumber(), i, 4);
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 4);
+                    model.setValueAt("yes", i, 5);
                 } else {
-                    model.setValueAt("no", i, 4);
+                    model.setValueAt("no", i, 5);
                 }
             }
             readAll.setVisible(true);
@@ -396,6 +419,15 @@ public class ControllerImplementation implements IController, ActionListener {
         if (answer == 0) {
             deleteAll();
         }
+    }
+
+    
+    public void handleCount() {
+        int c = count();
+        count = new Count (menu, true); 
+        SpinnerModel number = count.getCount().getModel();
+        number.setValue(c);
+        count.setVisible(true); 
     }
 
     /**
@@ -551,6 +583,22 @@ public class ControllerImplementation implements IController, ActionListener {
                 System.exit(0);
             }
         }
+    }
+
+    @Override
+    public int count() {
+        int number = 0;
+        try {
+            number = dao.count();
+        } catch (Exception ex) {
+            if (ex instanceof FileNotFoundException || ex instanceof IOException
+                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                    || ex instanceof SQLException || ex instanceof PersistenceException) {
+                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", count.getTitle(), JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+        return number;
     }
 
 }

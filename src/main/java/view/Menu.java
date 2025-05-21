@@ -48,6 +48,10 @@ public class Menu extends javax.swing.JFrame {
     public JButton getDeleteAll() {
         return deleteAll;
     }
+    
+    public JButton getCount() {
+        return count;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,6 +67,7 @@ public class Menu extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
         update = new javax.swing.JButton();
         insert = new javax.swing.JButton();
+        count = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         readAll = new javax.swing.JButton();
         deleteAll = new javax.swing.JButton();
@@ -126,12 +131,24 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 24);
         getContentPane().add(insert, gridBagConstraints);
 
+        count.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        count.setText("COUNT");
+        count.setMaximumSize(new java.awt.Dimension(120, 50));
+        count.setMinimumSize(new java.awt.Dimension(120, 50));
+        count.setPreferredSize(new java.awt.Dimension(120, 50));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
+        getContentPane().add(count, gridBagConstraints);
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
@@ -177,6 +194,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton count;
     private javax.swing.JButton delete;
     private javax.swing.JButton deleteAll;
     private javax.swing.JButton insert;

@@ -3,11 +3,13 @@ package model.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
+import utils.DataValidation;
 
 /**
  * Encapsulated class that defines the type of entity that will manage the
@@ -24,6 +26,7 @@ public class Person implements Serializable {
     private String name;
     private String email;
     private Date dateOfBirth;
+    private String phoneNumber;
     @Transient
     private ImageIcon photo;
     @Lob
@@ -64,11 +67,12 @@ public class Person implements Serializable {
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, String email, Date dateOfBirth, ImageIcon photo) {
+    public Person(String name, String nif, String email, Date dateOfBirth, String phoneNumber, ImageIcon photo) throws Exception {
         this.name = name;
         this.nif = nif;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        setPhoneNumber(phoneNumber);
         this.photo = photo;
     }
 
@@ -113,7 +117,7 @@ public class Person implements Serializable {
         this.photoOnlyJPA = photoOnlyJPA;
     }
 
-    public String getEmail() {
+   public String getEmail() {
         return email;
     }
 
@@ -121,6 +125,17 @@ public class Person implements Serializable {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) throws PersonException {
+        if (phoneNumber != null && !phoneNumber.isEmpty() && !DataValidation.isValidPhoneNumber(phoneNumber)) {
+            throw new PersonException("Invalid phone number format");
+        }
+        this.phoneNumber = phoneNumber;
+    }
+        
     /**
      * Function used to compare two Personas. There cannot be two or more people
      * with the same ID. Actually it isn't used in this project.
@@ -165,7 +180,8 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         return "Person {" + "Name = " + name + ", NIF = " + nif
-                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo != null) + "}";
+                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = " + (photo != null) + "}";
+
     }
 
 }

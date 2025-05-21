@@ -33,10 +33,11 @@ public class DAOSQL implements IDAO {
 
     private final String SQL_SELECT_ALL = "SELECT * FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + ";";
     private final String SQL_SELECT = "SELECT * FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " WHERE (nif = ?);";
-    private final String SQL_INSERT = "INSERT INTO " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " (nif, name, email , dateOfBirth, photo) VALUES (?, ?, ?, ?, ?);";
-    private final String SQL_UPDATE = "UPDATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " SET name = ?, email = ?, dateOfBirth = ?, photo = ? WHERE (nif = ?);";
+    private final String SQL_INSERT = "INSERT INTO " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " (nif, name, email , dateOfBirth, phoneNumber, photo) VALUES (?, ?, ?, ?, ?, ?);";
+    private final String SQL_UPDATE = "UPDATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " SET name = ?, email = ?, dateOfBirth = ?, phoneNumber = ?, photo = ? WHERE (nif = ?);";
     private final String SQL_DELETE = "DELETE FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " WHERE (nif = ";
     private final String SQL_DELETE_ALL = "TRUNCATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE();
+    private final String SQL_COUNT = "SELECT COUNT(*) FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE();
 
     public Connection connect() throws SQLException {
         Connection conn;
@@ -47,7 +48,7 @@ public class DAOSQL implements IDAO {
     public void disconnect(Connection conn) throws SQLException {
         conn.close();
     }
-
+    
     @Override
     public Person read(Person p) throws SQLException {
         Person pReturn = null;
@@ -67,6 +68,7 @@ public class DAOSQL implements IDAO {
                 pReturn.setEmail(email);
             }
             Date date = rs.getDate("dateOfBirth");
+            String phoneNumber = rs.getString("phoneNumber");
             if (date != null) {
                 pReturn.setDateOfBirth(date);
             }
@@ -82,7 +84,7 @@ public class DAOSQL implements IDAO {
     }
 
     @Override
-    public ArrayList<Person> readAll() throws SQLException {
+    public ArrayList<Person> readAll() throws Exception{
         ArrayList<Person> people = new ArrayList<>();
         Connection conn;
         Statement instruction;
@@ -95,11 +97,12 @@ public class DAOSQL implements IDAO {
             String name = rs.getString("name");
             String email = rs.getString("email");
             Date date = rs.getDate("dateOfBirth");
+            String phoneNumber = rs.getString("phoneNumber");
             String photo = rs.getString("photo");
             if (photo != null) {
-                people.add(new Person(nif, name, email, date, new ImageIcon(photo)));
+                people.add(new Person(nif, name, email, date, phoneNumber, new ImageIcon(photo)));
             } else {
-                people.add(new Person(nif, name, email, date, null));
+                people.add(new Person(nif, name, email, date, phoneNumber, null));
             }
         }
         rs.close();
@@ -137,6 +140,7 @@ public class DAOSQL implements IDAO {
         } else {
             instruction.setDate(4, null);
         }
+        instruction.setString(4, p.getPhoneNumber());
         if (p.getPhoto() != null) {
             String sep = File.separator;
             String filePath = Routes.DB.getFolderPhotos() + sep + p.getNif() + ".png";
@@ -178,6 +182,7 @@ public class DAOSQL implements IDAO {
         } else {
             instruction.setDate(3, null);
         }
+        instruction.setString(3, p.getPhoneNumber());
         if (p.getPhoto() != null) {
             String sep = File.separator;
             File imagePerson = new File(Routes.DB.getFolderPhotos() + sep + p.getNif() + ".png");
@@ -225,4 +230,21 @@ public class DAOSQL implements IDAO {
         }
     }
 
+    @Override
+    public int count() throws SQLException {
+        int count = 0;
+        Connection conn;
+        PreparedStatement instruction;
+        ResultSet rs;
+        conn = connect();
+        instruction = conn.prepareStatement(SQL_COUNT);
+        rs = instruction.executeQuery();
+        while (rs.next()) {
+            count = rs.getRow();
+        }
+        rs.close();
+        instruction.close();
+        disconnect(conn);
+        return count;
+    }
 }

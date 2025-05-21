@@ -56,7 +56,7 @@ public class DAOFile implements IDAO {
                 if (!data[4].equals("null")) {
                     photo = new ImageIcon(data[4]);
                 }
-                personToRead = new Person(data[0], data[1], data[2], date, photo);
+                personToRead = new Person(data[0], data[1], data[2], date, data[3], photo);
                 break;
             }
             line = br.readLine();
@@ -66,7 +66,7 @@ public class DAOFile implements IDAO {
     }
 
     @Override
-    public ArrayList<Person> readAll() throws FileNotFoundException, IOException, ParseException {
+    public ArrayList<Person> readAll() throws FileNotFoundException, IOException, ParseException, Exception {
         ArrayList<Person> people = new ArrayList<>();
         FileReader fr;
         BufferedReader br;
@@ -85,7 +85,7 @@ public class DAOFile implements IDAO {
             if (!data[4].equals("null")) {
                 photo = new ImageIcon(data[4]);
             }
-            people.add(new Person(data[0], data[1], data[2], date, photo));
+            people.add(new Person(data[0], data[1], data[2], date, data[3], photo));
             line = br.readLine();
         }
         br.close();
@@ -174,6 +174,21 @@ public class DAOFile implements IDAO {
     public void update(Person p) throws IOException {
         delete(p);
         insert(p);
+    }
+
+    @Override
+    public int count() throws Exception {
+        int count = 0;
+        FileReader fr;
+        BufferedReader br;
+        fr = new FileReader(Routes.FILE.getDataFile());
+        br = new BufferedReader(fr);
+        String line;
+        line = br.readLine();
+        while (line != null) {
+            count = line.length();
+        }
+        return count;
     }
 
 }
