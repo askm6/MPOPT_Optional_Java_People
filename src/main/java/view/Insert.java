@@ -136,7 +136,7 @@ public class Insert extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -201,7 +201,7 @@ public class Insert extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
@@ -223,7 +223,7 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.gridheight = 6;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 12);
@@ -247,9 +247,9 @@ public class Insert extends javax.swing.JDialog {
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
         nif.addActionListener(new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            nifActionPerformed(evt);
-          }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nifActionPerformed(evt);
+            }
         });
         nif.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -291,7 +291,7 @@ public class Insert extends javax.swing.JDialog {
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -303,7 +303,7 @@ public class Insert extends javax.swing.JDialog {
         jLabel2.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
@@ -314,12 +314,12 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
-    
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Email");
         jLabel3.setMaximumSize(new java.awt.Dimension(100, 22));
@@ -337,22 +337,22 @@ public class Insert extends javax.swing.JDialog {
         email.setMinimumSize(new java.awt.Dimension(400, 22));
         email.setPreferredSize(new java.awt.Dimension(400, 22));
         email.addFocusListener(new java.awt.event.FocusAdapter() {
-          public void focusLost(java.awt.event.FocusEvent evt) {
-            emailFocusLost(evt);
-          }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailFocusLost(evt);
+            }
         });
         email.addActionListener(new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            emailActionPerformed(evt);
-          }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
         });
         email.addKeyListener(new java.awt.event.KeyAdapter() {
-          public void keyReleased(java.awt.event.KeyEvent evt) {
-            emailKeyReleased(evt);
-          }
-          public void keyTyped(java.awt.event.KeyEvent evt) {
-            emailKeyTyped(evt);
-          }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailKeyTyped(evt);
+            }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -363,15 +363,15 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(email, gridBagConstraints);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Phone Number");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Phone Number");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(jLabel4, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -406,6 +406,7 @@ public class Insert extends javax.swing.JDialog {
         name.setText(placeholderName);
         name.setForeground(Color.gray);
         email.setText("");
+        phoneNumber.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -539,8 +540,8 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;

@@ -408,10 +408,11 @@ public class Update extends javax.swing.JDialog {
         nif.setForeground(Color.gray);
         name.setText("");
         email.setText("");
+        phoneNumber.setText("");
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null);
         name.setEnabled(false);
-        email.setEnabled(false);
+        phoneNumber.setEnabled(false);
         photo.setEnabled(false);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
