@@ -21,8 +21,10 @@ import view.Count;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,6 +34,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import javax.persistence.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,6 +45,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import utils.Constants;
+import view.Login;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -64,6 +68,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Update update;
     private ReadAll readAll;
     private Count count;
+    private Login login;
     public static ArrayList<Person> s;
     /**
      * This constructor allows the controller to know which data storage option
@@ -96,6 +101,8 @@ public class ControllerImplementation implements IController, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dSS.getAccept()[0]) {
             handleDataStorageSelection();
+        } else if (e.getSource() == login.getButtonLogin()) {
+            actionLogin();
         } else if (e.getSource() == menu.getInsert()) {
             handleInsertAction();
         } else if (insert != null && e.getSource() == insert.getInsert()) {
@@ -146,7 +153,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 setupJPADatabase();
                 break;
         }
-        setupMenu();
+        setupLogin();
     }
 
     private void setupFileStorage() {
@@ -234,7 +241,62 @@ public class ControllerImplementation implements IController, ActionListener {
         insert.getInsert().addActionListener(this);
         insert.setVisible(true);
     }
-
+    
+    private void setupLogin() {
+        login = new Login(menu, true);
+        login.setVisible(true);
+        login.getButtonLogin().addActionListener(this);
+        try {
+            createFile();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(login,"Validation Error",login.getTitle(), JOptionPane.ERROR_MESSAGE);
+            System.exit(0);   
+        }
+    }
+    
+    private void actionLogin() {
+        HashMap<String, String> accessData;
+        String username = login.getUsername().getText();
+        String password = login.getPassword().getText();
+        try {
+            accessData = getaccessData();
+            if (accessData.containsKey(username) && password.equals(accessData.get(username))) {
+                login.setVisible(false);
+                setupMenu();
+            } else {
+                JOptionPane.showMessageDialog(login, "Invalid username or password.", login.getTitle(), JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(login, "Failed to login. Exiting the application.", login.getTitle(), JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+    }
+    
+    private void createFile() throws IOException {
+        String dir = System.getProperty("user.dir");
+        File fileData = new File(dir + File.separator + "htpasswd.txt");
+        if (!fileData.exists()) {
+            fileData.createNewFile();
+        }
+    }
+    
+    private HashMap<String, String> getaccessData() throws IOException {
+        HashMap<String, String> accessData = new HashMap<>();
+        String data[];
+        String userDir = System.getProperty("user.dir");
+        File passwdData = new File(userDir + File.separator + "htpasswd.txt");
+        FileReader fr = new FileReader(passwdData);
+        BufferedReader br = new BufferedReader(fr);
+        String line = br.readLine();
+        while (line != null) {
+        data = line.split("= ");
+        accessData.put(data[0], data[1]);
+        line = br.readLine();
+        }
+        br.close();
+        return accessData;
+    } 
+    
     private void handleInsertPerson() {
         try {
             Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
