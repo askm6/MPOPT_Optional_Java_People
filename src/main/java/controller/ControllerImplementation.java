@@ -64,7 +64,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Update update;
     private ReadAll readAll;
     private Count count;
-
+    public static ArrayList<Person> s;
     /**
      * This constructor allows the controller to know which data storage option
      * the user has chosen.Schedule an event to deploy when the user has made
@@ -371,7 +371,7 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     public void handleReadAll() {
-        ArrayList<Person> s = readAll();
+        s = readAll();
         if (s.isEmpty()) {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
         } else {
