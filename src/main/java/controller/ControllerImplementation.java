@@ -200,6 +200,7 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "name varchar(50), "
                         + "email varchar(100), "
                         + "dateOfBirth DATE, "
+                        + "phoneNumber  varchar(50), "
                         + "photo varchar(200) );");
                 stmt.close();
                 conn.close();
@@ -298,24 +299,21 @@ public class ControllerImplementation implements IController, ActionListener {
     } 
     
     private void handleInsertPerson() {
-        try {
-            Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
-            if (insert.getEmail().getText() != null) {
-                p.setEmail(insert.getEmail().getText());
-            }
-            if (insert.getDateOfBirth().getModel().getValue() != null) {
-                p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
-            }
-            String phone = insert.getPhoneNumber().getText();
-            p.setPhoneNumber(phone);
-            if (insert.getPhoto().getIcon() != null) {
-                p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
-            }
-            insert(p);
-            insert.getReset().doClick();
-        } catch (PersonException ex) {
-            JOptionPane.showMessageDialog(insert, ex.getMessage(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        if (insert.getEmail().getText() != null) {
+            p.setEmail(insert.getEmail().getText());
         }
+        if (insert.getDateOfBirth().getModel().getValue() != null) {
+            p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
+        }
+        if (insert.getPhoneNumber().getText() != null) {
+            p.setPhoneNumber(insert.getPhoneNumber().getText());
+        }
+        if (insert.getPhoto().getIcon() != null) {
+            p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
+        }
+        insert(p);
+        insert.getReset().doClick();
     }
 
     private void handleReadAction() {
@@ -338,7 +336,9 @@ public class ControllerImplementation implements IController, ActionListener {
                 DateModel<Calendar> dateModel = (DateModel<Calendar>) read.getDateOfBirth().getModel();
                 dateModel.setValue(calendar);
             }
-            read.getPhoneNumber().setText(pNew.getPhoneNumber());
+            if (pNew.getPhoneNumber() != null) {
+                read.getPhoneNumber().setText(pNew.getPhoneNumber());
+            }
             //To avoid charging former images
             if (pNew.getPhoto() != null) {
                 pNew.getPhoto().getImage().flush();
@@ -358,10 +358,10 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleDeletePerson() {
         if (delete != null) {
-            int confirmation = JOptionPane.showConfirmDialog(menu, "Are you sure you want to delete this person?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+            int confirmation = JOptionPane.showConfirmDialog(delete, "Are you sure you want to delete this person?", delete.getTitle(), JOptionPane.YES_NO_OPTION);
             System.out.print(confirmation);
             if (confirmation == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(menu, "Person deleted successfully!");
+                JOptionPane.showMessageDialog(delete, "Person deleted successfully!");
                 Person p = new Person(delete.getNif().getText());
                 delete(p);
                 delete.getReset().doClick();
@@ -397,7 +397,9 @@ public class ControllerImplementation implements IController, ActionListener {
                     DateModel<Calendar> dateModel = (DateModel<Calendar>) update.getDateOfBirth().getModel();
                     dateModel.setValue(calendar);
                 }
-                update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                if (pNew.getPhoneNumber() != null) {
+                    update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                }
                 if (pNew.getPhoto() != null) {
                     pNew.getPhoto().getImage().flush();
                     update.getPhoto().setIcon(pNew.getPhoto());
@@ -420,7 +422,9 @@ public class ControllerImplementation implements IController, ActionListener {
                 if ((update.getDateOfBirth().getModel().getValue()) != null) {
                     p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
                 }
-                p.setPhoneNumber(update.getPhoneNumber().getText());
+                if ((update.getPhoneNumber().getText()) != null) {
+                    p.setPhoneNumber(update.getPhoneNumber().getText());
+                }
                 if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                     p.setPhoto((ImageIcon) update.getPhoto().getIcon());
                 }
@@ -453,7 +457,11 @@ public class ControllerImplementation implements IController, ActionListener {
                 } else {
                     model.setValueAt("", i, 3);
                 }
-                model.setValueAt(s.get(i).getPhoneNumber(), i, 4);
+                if (s.get(i).getPhoneNumber() != null) {
+                    model.setValueAt(s.get(i).getPhoneNumber(), i, 4);
+                } else {
+                    model.setValueAt("", i, 4);
+                }
                 if (s.get(i).getPhoto() != null) {
                     model.setValueAt("yes", i, 5);
                 } else {
@@ -504,7 +512,7 @@ public class ControllerImplementation implements IController, ActionListener {
         try {
             if (dao.read(p) == null) {
                 dao.insert(p);
-                JOptionPane.showMessageDialog(insert, "Person inserted successfully!", "Person inserted", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(insert, "Person inserted successfully!");
             } else {
                 throw new PersonException(p.getNif() + " is registered and can not "
                         + "be INSERTED.");
@@ -569,11 +577,11 @@ public class ControllerImplementation implements IController, ActionListener {
             if (ex instanceof FileNotFoundException || ex instanceof IOException
                     || ex instanceof ParseException || ex instanceof ClassNotFoundException
                     || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage() + ex.getClass() + " Closing application.", "Insert - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(delete, ex.getMessage() + ex.getClass() + " Closing application.", delete.getTitle(), JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
             if (ex instanceof PersonException) {
-                JOptionPane.showMessageDialog(read, ex.getMessage(), "Delete - People v1.1.0", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(delete, ex.getMessage(), delete.getTitle(), JOptionPane.WARNING_MESSAGE);
             }
         }
     }
@@ -656,7 +664,7 @@ public class ControllerImplementation implements IController, ActionListener {
             if (ex instanceof FileNotFoundException || ex instanceof IOException
                     || ex instanceof ParseException || ex instanceof ClassNotFoundException
                     || ex instanceof SQLException || ex instanceof PersistenceException) {
-                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", count.getTitle(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(count, ex.getMessage() + " Closing application.", count.getTitle(), JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
             }
         }

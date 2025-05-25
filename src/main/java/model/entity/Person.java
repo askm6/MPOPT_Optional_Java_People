@@ -72,7 +72,7 @@ public class Person implements Serializable {
         this.nif = nif;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
-        setPhoneNumber(phoneNumber);
+        this.phoneNumber = phoneNumber;
         this.photo = photo;
     }
 
@@ -129,12 +129,10 @@ public class Person implements Serializable {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) throws PersonException {
-        if (phoneNumber != null && !phoneNumber.isEmpty() && !DataValidation.isValidPhoneNumber(phoneNumber)) {
-            throw new PersonException("Invalid phone number format");
-        }
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
         
     /**
      * Function used to compare two Personas. There cannot be two or more people

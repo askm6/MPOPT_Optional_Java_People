@@ -190,7 +190,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAllActionPerformed
-        JOptionPane.showMessageDialog(this, "All persons have been deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "All persons have been deleted successfully!");
     }//GEN-LAST:event_deleteAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
