@@ -70,6 +70,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Count count;
     private Login login;
     public static ArrayList<Person> s;
+
     /**
      * This constructor allows the controller to know which data storage option
      * the user has chosen.Schedule an event to deploy when the user has made
@@ -125,8 +126,6 @@ public class ControllerImplementation implements IController, ActionListener {
             handleReadAll();
         } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
-        } else if (e.getSource() == count.getCount()) {
-            handleCount();
         }
     }
 
@@ -242,7 +241,7 @@ public class ControllerImplementation implements IController, ActionListener {
         insert.getInsert().addActionListener(this);
         insert.setVisible(true);
     }
-    
+
     private void setupLogin() {
         login = new Login(menu, true);
         login.setVisible(true);
@@ -250,11 +249,11 @@ public class ControllerImplementation implements IController, ActionListener {
         try {
             createFile();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(login,"Validation Error",login.getTitle(), JOptionPane.ERROR_MESSAGE);
-            System.exit(0);   
+            JOptionPane.showMessageDialog(login, "Validation Error", login.getTitle(), JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
-    
+
     private void actionLogin() {
         HashMap<String, String> accessData;
         String username = login.getUsername().getText();
@@ -272,7 +271,7 @@ public class ControllerImplementation implements IController, ActionListener {
             System.exit(0);
         }
     }
-    
+
     private void createFile() throws IOException {
         String dir = System.getProperty("user.dir");
         File fileData = new File(dir + File.separator + "htpasswd.txt");
@@ -280,7 +279,7 @@ public class ControllerImplementation implements IController, ActionListener {
             fileData.createNewFile();
         }
     }
-    
+
     private HashMap<String, String> getaccessData() throws IOException {
         HashMap<String, String> accessData = new HashMap<>();
         String data[];
@@ -290,14 +289,14 @@ public class ControllerImplementation implements IController, ActionListener {
         BufferedReader br = new BufferedReader(fr);
         String line = br.readLine();
         while (line != null) {
-        data = line.split("= ");
-        accessData.put(data[0], data[1]);
-        line = br.readLine();
+            data = line.split("= ");
+            accessData.put(data[0], data[1]);
+            line = br.readLine();
         }
         br.close();
         return accessData;
-    } 
-    
+    }
+
     private void handleInsertPerson() {
         Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
         if (insert.getEmail().getText() != null) {
@@ -491,13 +490,15 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-    
     public void handleCount() {
-        int c = count();
-        count = new Count (menu, true); 
-        SpinnerModel number = count.getCount().getModel();
-        number.setValue(c);
-        count.setVisible(true); 
+        try {
+            int c = dao.count();
+            Count dialog = new Count(menu, true);
+            dialog.setCountValue(c);
+            dialog.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(menu, "Error counting people: " + ex.getMessage());
+        }
     }
 
     /**

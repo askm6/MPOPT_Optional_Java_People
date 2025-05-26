@@ -20,8 +20,8 @@ public class Count extends javax.swing.JDialog {
         initComponents();
     }
     
-    public JSpinner getCount() {
-        return count;
+    public void setCountValue(int value) {
+        count.setValue(value);
     }
 
     /**
