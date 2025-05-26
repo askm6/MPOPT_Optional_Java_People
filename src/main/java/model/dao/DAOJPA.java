@@ -150,10 +150,9 @@ public class DAOJPA implements IDAO {
     @Override
     public int count() throws Exception {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Person> query = (TypedQuery<Person>) em.createQuery("SELECT COUNT(p) FROM Person p", Person.class).getSingleResult();
-       
-        return query.getFirstResult();
+        Long total = (Long) em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+        em.close();
+        return total.intValue();
     }
-
 
 }

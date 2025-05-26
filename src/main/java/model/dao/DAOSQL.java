@@ -48,7 +48,7 @@ public class DAOSQL implements IDAO {
     public void disconnect(Connection conn) throws SQLException {
         conn.close();
     }
-    
+
     @Override
     public Person read(Person p) throws SQLException {
         Person pReturn = null;
@@ -87,7 +87,7 @@ public class DAOSQL implements IDAO {
     }
 
     @Override
-    public ArrayList<Person> readAll() throws Exception{
+    public ArrayList<Person> readAll() throws Exception {
         ArrayList<Person> people = new ArrayList<>();
         Connection conn;
         Statement instruction;
@@ -235,18 +235,13 @@ public class DAOSQL implements IDAO {
 
     @Override
     public int count() throws SQLException {
-        int count = 0;
-        Connection conn;
-        PreparedStatement instruction;
-        ResultSet rs;
-        conn = connect();
-        instruction = conn.prepareStatement(SQL_COUNT);
-        rs = instruction.executeQuery();
-        while (rs.next()) {
-            count = rs.getRow();
-        }
+        Connection conn = connect();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM Person");
+        rs.next();
+        int count = rs.getInt(1);
         rs.close();
-        instruction.close();
+        stmt.close();
         disconnect(conn);
         return count;
     }
