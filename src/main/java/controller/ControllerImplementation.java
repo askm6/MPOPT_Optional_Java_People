@@ -200,6 +200,7 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "email varchar(100), "
                         + "dateOfBirth DATE, "
                         + "phoneNumber  varchar(50), "
+                        + "postalCode  varchar(50), "
                         + "photo varchar(200) );");
                 stmt.close();
                 conn.close();
@@ -308,6 +309,9 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getPhoneNumber().getText() != null) {
             p.setPhoneNumber(insert.getPhoneNumber().getText());
         }
+        if (insert.getPostalCode().getText() != null) {
+            p.setPostalCode(insert.getPostalCode().getText());
+        }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
@@ -337,6 +341,9 @@ public class ControllerImplementation implements IController, ActionListener {
             }
             if (pNew.getPhoneNumber() != null) {
                 read.getPhoneNumber().setText(pNew.getPhoneNumber());
+            }
+            if (pNew.getPostalCode() != null) {
+                read.getPostalCode().setText(pNew.getPostalCode());
             }
             //To avoid charging former images
             if (pNew.getPhoto() != null) {
@@ -384,6 +391,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getEmail().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoneNumber().setEnabled(true);
+                update.getPostalCode().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
@@ -398,6 +406,9 @@ public class ControllerImplementation implements IController, ActionListener {
                 }
                 if (pNew.getPhoneNumber() != null) {
                     update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                }
+                if (pNew.getPostalCode() != null) {
+                    update.getPostalCode().setText(pNew.getPostalCode());
                 }
                 if (pNew.getPhoto() != null) {
                     pNew.getPhoto().getImage().flush();
@@ -423,6 +434,9 @@ public class ControllerImplementation implements IController, ActionListener {
                 }
                 if ((update.getPhoneNumber().getText()) != null) {
                     p.setPhoneNumber(update.getPhoneNumber().getText());
+                }
+                if ((update.getPostalCode().getText()) != null) {
+                    p.setPostalCode(update.getPostalCode().getText());
                 }
                 if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                     p.setPhoto((ImageIcon) update.getPhoto().getIcon());
@@ -461,10 +475,15 @@ public class ControllerImplementation implements IController, ActionListener {
                 } else {
                     model.setValueAt("", i, 4);
                 }
-                if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 5);
+                if (s.get(i).getPostalCode() != null) {
+                    model.setValueAt(s.get(i).getPostalCode(), i, 5);
                 } else {
-                    model.setValueAt("no", i, 5);
+                    model.setValueAt("", i, 5);
+                }
+                if (s.get(i).getPhoto() != null) {
+                    model.setValueAt("yes", i, 6);
+                } else {
+                    model.setValueAt("no", i, 6);
                 }
             }
             readAll.setVisible(true);

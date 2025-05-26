@@ -16,12 +16,13 @@ class PersonTest {
     private String email = "test@example.com";
     private Date dateOfBirth = new Date();
     private String phoneNumber = ("+34 600 555 123");
+    private String postalCode = "12345";
     private ImageIcon photo = new ImageIcon();
 
     @BeforeEach
     void setUp() throws Exception {
         person = new Person(nif);
-        personWithFullData = new Person(name, email, nif, dateOfBirth, phoneNumber, photo);
+        personWithFullData = new Person(name, email, nif, dateOfBirth, phoneNumber, postalCode, photo);
     }
 
     @Test
@@ -30,6 +31,8 @@ class PersonTest {
         assertNull(person.getName());
         assertNull(person.getEmail());
         assertNull(person.getDateOfBirth());
+        assertNull(person.getPhoneNumber());
+        assertNull(person.getPostalCode());
         assertNull(person.getPhoto());
     }
 
@@ -47,6 +50,7 @@ class PersonTest {
         assertEquals(email, personWithFullData.getEmail());
         assertEquals(dateOfBirth, personWithFullData.getDateOfBirth());
         assertEquals(phoneNumber, personWithFullData.getPhoneNumber());
+        assertEquals(postalCode, personWithFullData.getPostalCode());
         assertEquals(photo, personWithFullData.getPhoto());
     }
 
@@ -64,6 +68,9 @@ class PersonTest {
         
         person.setPhoneNumber("600-555-123");
         assertEquals("600-555-123", person.getPhoneNumber());
+        
+        person.setPostalCode("12345");
+        assertEquals("12345", person.getPostalCode());
 
         ImageIcon newPhoto = new ImageIcon("path/to/photo.jpg");
         person.setPhoto(newPhoto);
@@ -106,7 +113,7 @@ class PersonTest {
     @Test
     void testToString() {
         String expected = "Person {Name = " + name + ", NIF = " + nif
-                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = true}";
+                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", PostalCode = " + postalCode + ", Photo = true}";
         assertEquals(expected, personWithFullData.toString());
     }
 }
