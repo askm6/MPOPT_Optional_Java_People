@@ -27,6 +27,7 @@ public class Person implements Serializable {
     private String email;
     private Date dateOfBirth;
     private String phoneNumber;
+    private String postalCode;
     @Transient
     private ImageIcon photo;
     @Lob
@@ -67,12 +68,13 @@ public class Person implements Serializable {
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, String email, Date dateOfBirth, String phoneNumber, ImageIcon photo) throws Exception {
+    public Person(String name, String nif, String email, Date dateOfBirth, String phoneNumber, String postalCode, ImageIcon photo) throws Exception {
         this.name = name;
         this.nif = nif;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
+        this.postalCode = postalCode;
         this.photo = photo;
     }
 
@@ -133,6 +135,14 @@ public class Person implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
         
     /**
      * Function used to compare two Personas. There cannot be two or more people
@@ -178,7 +188,7 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         return "Person {" + "Name = " + name + ", NIF = " + nif
-                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ", Photo = " + (photo != null) + "}";
+                + ", Email = " + email + ", DateOfBirth = " + dateOfBirth + ", PhoneNumber = " + phoneNumber + ",  PostalCode = " +  postalCode + ", Photo = " + (photo != null) + "}";
 
     }
 

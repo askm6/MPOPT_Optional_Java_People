@@ -73,6 +73,10 @@ public class Read extends javax.swing.JDialog {
     public JTextField getPhoneNumber() {
         return phoneNumber;
     }
+    
+    public JTextField getPostalCode() {
+        return postalCode;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,14 +94,16 @@ public class Read extends javax.swing.JDialog {
         photo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        dateOfBirth = new org.jdatepicker.JDatePicker();
-        jLabel2 = new javax.swing.JLabel();
-        reset = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        dateOfBirth = new org.jdatepicker.JDatePicker();
+        jLabel6 = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        postalCode = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        reset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Read - People v1.1.0");
@@ -116,7 +122,7 @@ public class Read extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
@@ -182,7 +188,7 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 7;
+        gridBagConstraints.gridheight = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 12);
@@ -218,62 +224,6 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(name, gridBagConstraints);
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setText("Phone Number");
-        jLabel8.setMaximumSize(new java.awt.Dimension(150, 22));
-        jLabel8.setMinimumSize(new java.awt.Dimension(150, 22));
-        jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(jLabel8, gridBagConstraints);
-
-        dateOfBirth.setEnabled(false);
-        dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
-        dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
-        dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
-        getContentPane().add(dateOfBirth, gridBagConstraints);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
-        getContentPane().add(jLabel2, gridBagConstraints);
-
-        reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        reset.setText("RESET");
-        reset.setMaximumSize(new java.awt.Dimension(187, 33));
-        reset.setMinimumSize(new java.awt.Dimension(187, 33));
-        reset.setPreferredSize(new java.awt.Dimension(187, 33));
-        reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
-        getContentPane().add(reset, gridBagConstraints);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Email");
@@ -314,6 +264,45 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(email, gridBagConstraints);
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Date of Birth");
+        jLabel5.setMaximumSize(new java.awt.Dimension(150, 22));
+        jLabel5.setMinimumSize(new java.awt.Dimension(150, 22));
+        jLabel5.setPreferredSize(new java.awt.Dimension(150, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel5, gridBagConstraints);
+
+        dateOfBirth.setEnabled(false);
+        dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
+        dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
+        dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(dateOfBirth, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Phone Number");
+        jLabel6.setMaximumSize(new java.awt.Dimension(150, 22));
+        jLabel6.setMinimumSize(new java.awt.Dimension(150, 22));
+        jLabel6.setPreferredSize(new java.awt.Dimension(150, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel6, gridBagConstraints);
+
         phoneNumber.setEnabled(false);
         phoneNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -329,18 +318,63 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(phoneNumber, gridBagConstraints);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Date of Birth");
-        jLabel9.setMaximumSize(new java.awt.Dimension(150, 22));
-        jLabel9.setMinimumSize(new java.awt.Dimension(150, 22));
-        jLabel9.setPreferredSize(new java.awt.Dimension(150, 22));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("Postal Code");
+        jLabel7.setMaximumSize(new java.awt.Dimension(150, 22));
+        jLabel7.setMinimumSize(new java.awt.Dimension(150, 22));
+        jLabel7.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
-        getContentPane().add(jLabel9, gridBagConstraints);
+        getContentPane().add(jLabel7, gridBagConstraints);
+
+        postalCode.setEnabled(false);
+        postalCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postalCodeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(postalCode, gridBagConstraints);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
+        getContentPane().add(jLabel2, gridBagConstraints);
+
+        reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reset.setText("RESET");
+        reset.setMaximumSize(new java.awt.Dimension(187, 33));
+        reset.setMinimumSize(new java.awt.Dimension(187, 33));
+        reset.setPreferredSize(new java.awt.Dimension(187, 33));
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(reset, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -359,6 +393,7 @@ public class Read extends javax.swing.JDialog {
         name.setText("");
         email.setText("");
         phoneNumber.setText("");
+        postalCode.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -435,6 +470,10 @@ public class Read extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_phoneNumberActionPerformed
 
+    private void postalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postalCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_postalCodeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JTextField email;
@@ -442,12 +481,14 @@ public class Read extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
     private javax.swing.JTextField phoneNumber;
     private javax.swing.JLabel photo;
+    private javax.swing.JTextField postalCode;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables

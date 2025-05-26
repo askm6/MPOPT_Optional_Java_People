@@ -37,10 +37,17 @@ public class DataValidation {
         return matcher.matches();
     }
 
-  public static Boolean validateEmail(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&-]+(?:.[a-zA-Z0-9_+&-]+)*@(?:[a-zA-Z0-9-]+.)+[a-zA-Z]{2,7}$";
-    Pattern pattern = Pattern.compile(emailRegex);
-    Matcher matcher = pattern.matcher(email);
-    return matcher.matches();
-  }
+    public static Boolean validateEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&-]+(?:.[a-zA-Z0-9_+&-]+)*@(?:[a-zA-Z0-9-]+.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+  
+    public static Boolean validatePostalCode(String postalCode) {
+        String postalCodeRegex = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
+        Pattern pattern = Pattern.compile(postalCodeRegex);
+        Matcher matcher = pattern.matcher(postalCode);
+        return matcher.matches();
+    }
 }
