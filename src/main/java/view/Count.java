@@ -53,6 +53,7 @@ public class Count extends javax.swing.JDialog {
         getContentPane().add(jLabel1, gridBagConstraints);
 
         count.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        count.setEnabled(false);
         count.setPreferredSize(new java.awt.Dimension(340, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
